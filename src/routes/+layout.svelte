@@ -7,5 +7,4 @@
 		window.HSStaticMethods.autoInit();
 	});
 </script>
-
 {@render children()}

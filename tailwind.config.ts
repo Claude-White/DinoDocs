@@ -7,7 +7,18 @@ export default {
 	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/preline/preline.js'],
 
 	theme: {
-		extend: {}
+		extend: {
+			animation: {
+				'bounce-in': 'bounce-in 0.3s'
+			},
+			keyframes: {
+				'bounce-in': {
+					'0%': { transform: 'scale(1)' },
+					'50%': { transform: 'scale(0.95)' }, // Scale down a bit
+					'100%': { transform: 'scale(1)' } // Return to normal size
+				}
+			},
+		}
 	},
 
 	plugins: [typography, forms, require('preline/plugin')]
