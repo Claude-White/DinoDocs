@@ -3,11 +3,12 @@ import typography from '@tailwindcss/typography';
 import type { Config } from 'tailwindcss';
 
 export default {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+	darkMode: 'class',
+	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/preline/preline.js'],
 
 	theme: {
 		extend: {}
 	},
 
-	plugins: [typography, forms]
+	plugins: [typography, forms, require('preline/plugin')]
 } satisfies Config;
