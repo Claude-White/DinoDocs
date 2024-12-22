@@ -12,6 +12,7 @@
 	let { data }: { data: PageData } = $props();
 	let items: Item[] = $state([]);
 	let showAddGroupForm: boolean = $state(false);
+	let newGroupInput: HTMLElement | undefined = $state();
 
 	function handleAddGroupSubmit(e: SubmitEvent) {
 		const form = e.target as HTMLFormElement;
@@ -107,6 +108,7 @@
 						</button>
 					</li>
 					{#if showAddGroupForm}
+						{newGroupInput?.focus()}
 						<li>
 							<form
 								method="post"
@@ -120,6 +122,10 @@
 									placeholder="Enter group name"
 									name="new-group-name"
 									required
+									bind:this={newGroupInput}
+									onblur={() => {
+										showAddGroupForm = false;
+									}}
 								/>
 							</form>
 						</li>
