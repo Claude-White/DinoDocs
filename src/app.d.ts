@@ -12,15 +12,5 @@ declare global {
 			autoInit(): void;
 		};
 	}
-	interface Swapy {
-		enable(enabled: boolean): void;
-		onSwapStart(handler: SwapStartEventHandler): void;
-		onSwap(handler: SwapEventHandler): void;
-		onSwapEnd(handler: SwapEndEventHandler): void;
-		onBeforeSwap(handler: BeforeSwapHandler): void;
-		slotItemMap(): SlotItemMap;
-		update(): void;
-		destroy(): void;
-	}
 }
 export {};
