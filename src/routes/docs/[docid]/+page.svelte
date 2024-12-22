@@ -2,9 +2,15 @@
 	import type { PageData } from './$types';
 	import { Plus, GripVertical } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
+	import Sortable from '$lib/components/Sortable.svelte';
+
+	type Item = {
+		id: number;
+		name: string;
+	};
 
 	let { data }: { data: PageData } = $props();
-	let items: string[] = $state([]);
+	let items: Item[] = $state([]);
 	let showAddGroupForm: boolean = $state(false);
 
 	function handleAddGroupSubmit(e: SubmitEvent) {
@@ -13,12 +19,16 @@
 		const groupName = formData.get('new-group-name');
 		if (groupName) {
 			showAddGroupForm = false;
-			items.push(groupName.toString());
+			let nextItemId = 0;
+			const highestIdItem = items.reduce((max, obj) => (obj.id > max.id ? obj : max), items[0]);
+			if (highestIdItem) {
+				nextItemId = highestIdItem.id + 1;
+			}
+			items = [{ id: nextItemId, name: groupName.toString() }, ...items];
 		}
-		console.log(items);
 	}
 
-	function handleUpdate(newOrder: string[]) {
+	function handleUpdate(newOrder: Item[]) {
 		items = newOrder;
 		console.log('Updated Order:', items);
 	}
@@ -114,6 +124,7 @@
 							</form>
 						</li>
 					{/if}
+					<Sortable {items} />
 				</ul>
 			</nav>
 		</div>
