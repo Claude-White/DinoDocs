@@ -7,12 +7,10 @@ declare global {
 			session: import('$lib/server/auth').SessionValidationResult['session'];
 		}
 	}
-
 	interface Window {
 		HSStaticMethods: {
 			autoInit(): void;
 		};
 	}
 }
-
 export {};
