@@ -106,11 +106,7 @@
 					{#if showAddGroupForm}
 						{newGroupInput?.focus()}
 						<li class="mt-2">
-							<form
-								method="post"
-								onsubmit={handleAddGroupSubmit}
-								class="flex items-center gap-2"
-							>
+							<form method="post" onsubmit={handleAddGroupSubmit} class="flex items-center gap-2">
 								<input
 									type="text"
 									class="block w-full rounded-lg border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:focus:ring-neutral-600"
@@ -118,9 +114,7 @@
 									name="new-group-name"
 									required
 									bind:this={newGroupInput}
-									onblur={() => {
-										showAddGroupForm = false;
-									}}
+									onblur={() => (showAddGroupForm = false)}
 								/>
 							</form>
 						</li>
@@ -135,7 +129,7 @@
 <!-- End Sidebar -->
 
 <!-- Content -->
-<div class="w-full px-4 pt-10 sm:px-6 md:px-8 lg:ps-72">
-	<!-- your content goes here ... -->
+<div class="h-full w-full px-4 pt-10 sm:px-6 md:px-8 lg:ps-72">
+	<h1>Testing</h1>
 </div>
 <!-- End Content -->
