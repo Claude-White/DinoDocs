@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import { Plus, GripVertical } from 'lucide-svelte';
-	import { enhance } from '$app/forms';
+	import { Plus } from 'lucide-svelte';
 	import Sortable from '$lib/components/Sortable.svelte';
 
 	type Item = {
 		id: number;
 		name: string;
+		isNew?: boolean;
 	};
 
 	let { data }: { data: PageData } = $props();
@@ -15,6 +15,7 @@
 	let newGroupInput: HTMLElement | undefined = $state();
 
 	function handleAddGroupSubmit(e: SubmitEvent) {
+		e.preventDefault();
 		const form = e.target as HTMLFormElement;
 		const formData = new FormData(form);
 		const groupName = formData.get('new-group-name');
@@ -27,11 +28,6 @@
 			}
 			items = [{ id: nextItemId, name: groupName.toString() }, ...items];
 		}
-	}
-
-	function handleUpdate(newOrder: Item[]) {
-		items = newOrder;
-		console.log('Updated Order:', items);
 	}
 </script>
 
@@ -109,11 +105,10 @@
 					</li>
 					{#if showAddGroupForm}
 						{newGroupInput?.focus()}
-						<li>
+						<li class="mt-2">
 							<form
 								method="post"
 								onsubmit={handleAddGroupSubmit}
-								use:enhance
 								class="flex items-center gap-2"
 							>
 								<input

@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { dndzone } from 'svelte-dnd-action';
 	import { flip } from 'svelte/animate';
+	import { GripVertical } from 'lucide-svelte';
 	const FLIP_DURATION = 100;
 	type Item = {
 		id: number;
 		name: string;
+		isNew?: boolean;
 	};
 	let { items }: { items: Item[] } = $props();
 
@@ -26,6 +28,9 @@
 				(item) => !currentOrder.find((existing) => existing.id === item.id)
 			);
 			items = [...newItems, ...currentOrder];
+			setTimeout(() => {
+				items = items.map((item) => ({ ...item, isNew: false }));
+			}, 0);
 		}
 	});
 </script>
@@ -37,7 +42,11 @@
 	onfinalize={handleFinalize}
 >
 	{#each items as item (item.id)}
-		<li class="rounded-lg bg-slate-100 px-2 py-1 ring-1" animate:flip={{ duration: FLIP_DURATION }}>
+		<li
+			class="hs-accordion-toggle flex w-full items-center gap-x-2 rounded-lg border border-gray-300 bg-gray-100 px-2.5 py-2 text-start text-sm text-gray-800 shadow-sm hover:bg-gray-200 focus:bg-gray-100 focus:outline-none dark:bg-neutral-800 dark:text-neutral-200 dark:hover:bg-neutral-700"
+			animate:flip={item.isNew ? undefined : { duration: FLIP_DURATION }}
+		>
+			<GripVertical class="opacity-50" size={16} />
 			{item.name}
 		</li>
 	{/each}
