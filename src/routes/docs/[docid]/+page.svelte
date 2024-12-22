@@ -1,7 +1,7 @@
 <script lang="ts">
-	import Sortable from 'sortablejs';
 	import type { PageData } from './$types';
 	import { Plus, GripVertical } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
 
 	let { data }: { data: PageData } = $props();
 	let items: string[] = $state([]);
@@ -15,23 +15,15 @@
 			showAddGroupForm = false;
 			items.push(groupName.toString());
 		}
+		console.log(items);
 	}
 
 	function handleUpdate(newOrder: string[]) {
 		items = newOrder;
 		console.log('Updated Order:', items);
 	}
-
-	function sortTable(e: Event) {
-		new Sortable(e, {
-			animation: 150,
-			handle: '.hs-handle',
-			dragClass: '!rounded-none'
-		});
-	}
 </script>
 
-<!-- ========== MAIN CONTENT ========== -->
 <!-- Breadcrumb -->
 <div
 	class="sticky inset-x-0 top-0 z-20 border-y bg-white px-4 dark:border-neutral-700 dark:bg-neutral-800 sm:px-6 lg:hidden lg:px-8"
@@ -93,25 +85,12 @@
 				class="hs-accordion-group flex w-full flex-col flex-wrap p-3"
 				data-hs-accordion-always-open
 			>
-				<!-- <ul id="group-list" onload={sortTable} class="flex flex-col space-y-1">
-
-					<li>
-						<button
-							onclick={addGroup}
-							id="add-group"
-							class="active:animate-bounce-in flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
-						>
-							Add Group
-							<Plus size={20} />
-						</button>
-					</li>
-				</ul> -->
 				<ul>
 					<li>
 						<button
 							onclick={() => (showAddGroupForm = true)}
 							id="add-group"
-							class="active:animate-bounce-in flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none disabled:pointer-events-none disabled:opacity-50"
+							class="flex w-full items-center justify-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 focus:bg-blue-700 focus:outline-none active:animate-bounce-in disabled:pointer-events-none disabled:opacity-50"
 						>
 							Add Group
 							<Plus size={20} />
@@ -119,7 +98,12 @@
 					</li>
 					{#if showAddGroupForm}
 						<li>
-							<form method="post" onsubmit={handleAddGroupSubmit} class="flex items-center gap-2">
+							<form
+								method="post"
+								onsubmit={handleAddGroupSubmit}
+								use:enhance
+								class="flex items-center gap-2"
+							>
 								<input
 									type="text"
 									class="block w-full rounded-lg border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:focus:ring-neutral-600"
@@ -131,7 +115,6 @@
 						</li>
 					{/if}
 				</ul>
-				<Sortable {items} onUpdate={handleUpdate} />
 			</nav>
 		</div>
 		<!-- End Content -->
@@ -144,4 +127,3 @@
 	<!-- your content goes here ... -->
 </div>
 <!-- End Content -->
-<!-- ========== END MAIN CONTENT ========== -->
