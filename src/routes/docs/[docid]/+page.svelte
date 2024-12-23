@@ -26,7 +26,7 @@
 			if (highestIdItem) {
 				nextItemId = highestIdItem.id + 1;
 			}
-			items = [{ id: nextItemId, name: groupName.toString() }, ...items];
+			items = [...items, { id: nextItemId, name: groupName.toString() }];
 		}
 	}
 </script>
@@ -92,7 +92,7 @@
 				class="hs-accordion-group flex w-full flex-col flex-wrap p-3"
 				data-hs-accordion-always-open
 			>
-				<ul>
+				<ul class="flex flex-col">
 					<li>
 						<button
 							onclick={() => (showAddGroupForm = true)}
@@ -103,10 +103,11 @@
 							<Plus size={20} />
 						</button>
 					</li>
+					<Sortable {items} />
 					{#if showAddGroupForm}
 						{newGroupInput?.focus()}
 						<li class="mt-2">
-							<form method="post" onsubmit={handleAddGroupSubmit} class="flex items-center gap-2">
+							<form method="post" onsubmit={handleAddGroupSubmit} class="flex items-center">
 								<input
 									type="text"
 									class="block w-full rounded-lg border-gray-200 px-4 py-2 text-sm focus:border-blue-500 focus:ring-blue-500 disabled:pointer-events-none disabled:opacity-50 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-400 dark:focus:ring-neutral-600"
@@ -119,7 +120,6 @@
 							</form>
 						</li>
 					{/if}
-					<Sortable {items} />
 				</ul>
 			</nav>
 		</div>

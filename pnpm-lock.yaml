@@ -90,6 +90,9 @@ importers:
       svelte-dnd-action:
         specifier: ^0.9.53
         version: 0.9.53(svelte@5.15.0)
+      svelte-popperjs:
+        specifier: ^1.3.2
+        version: 1.3.2(@popperjs/core@2.11.8)(svelte@5.15.0)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.17
@@ -2083,6 +2086,12 @@ packages:
       svelte:
         optional: true
 
+  svelte-popperjs@1.3.2:
+    resolution: {integrity: sha512-fwrErlkvngL876WXRnL3OLlfk/n9YkZwwLxuKRpZOYCJLt1zrwhoKTXS+/sRgDveD/zd6GQ35hV89EOip+NBGA==}
+    peerDependencies:
+      '@popperjs/core': '>=2'
+      svelte: '>=3'
+
   svelte@5.15.0:
     resolution: {integrity: sha512-YWl8rAd4hSjERLtLvP6h2pflGtmrJwv+L12BgrOtHYJCpvLS9WKp/YNAdyolw3FymXtcYZqhSWvWlu5O1X7tgQ==}
     engines: {node: '>=18'}
@@ -3900,6 +3909,11 @@ snapshots:
       postcss: 8.4.49
       postcss-scss: 4.0.9(postcss@8.4.49)
     optionalDependencies:
+      svelte: 5.15.0
+
+  svelte-popperjs@1.3.2(@popperjs/core@2.11.8)(svelte@5.15.0):
+    dependencies:
+      '@popperjs/core': 2.11.8
       svelte: 5.15.0
 
   svelte@5.15.0:
